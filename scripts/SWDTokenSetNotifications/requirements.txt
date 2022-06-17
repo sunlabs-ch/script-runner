@@ -1,0 +1,6 @@
+discord.py
+pexpect
+python-dotenv
+requests
+web3
+python-telegram-bot
