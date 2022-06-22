@@ -15,6 +15,21 @@ const dayjs = require('dayjs');
 
 const publicAddress = process.env.ATPMP_PUBLIC_ADDRESS || process.exit(1);
 
+const promiseWithTimeout = <T>(timeoutMs: number, promise: Promise<T>, failureMessage?: string) => {
+	let timeoutHandle: NodeJS.Timeout;
+	const timeoutPromise = new Promise<never>((resolve, reject) => {
+		timeoutHandle = setTimeout(() => reject(new Error(failureMessage)), timeoutMs);
+	});
+
+	return Promise.race([
+		promise,
+		timeoutPromise,
+	]).then((result) => {
+		clearTimeout(timeoutHandle);
+		return result;
+	});
+}
+
 const main = async () => {
 	ADDRESSES.forEach(async (a) => {
 		const manager = tokenPriceManager.attach(await tokenPriceController.getManager(a.symbol));
@@ -28,7 +43,16 @@ const main = async () => {
 		const priceUpper = priceZerox.mul(1000 + feeSpread).div(1000);
 		const priceLower = priceZerox.mul(1000 - feeSpread).div(1000);
 		if (a.lastPrice.lt(priceLower) || a.lastPrice.gt(priceUpper)) {
-			if (await a.management(manager, priceZerox)) {
+			const success = promiseWithTimeout<boolean>(
+				180000,
+				a.management(manager, priceZerox),
+				"[" + dayjs().format() + " " + a.symbol + " " + publicAddress + "]: Price change timed out."
+			)
+				.catch((e) => {
+					console.log(e);
+					return new Promise<boolean>((resolve,) => resolve(false));
+				});
+			if (await success) {
 				a.lastPrice = priceZerox;
 				console.log(
 					"[" + dayjs().format() + " " + a.symbol + " " + publicAddress + "]: Price changed to " + priceLegible.toString() +"."
@@ -39,6 +63,10 @@ const main = async () => {
 					"[" + dayjs().format() + " " + a.symbol + " " + publicAddress + "]: Price change failed."
 				);
 			}
+		} else {
+			console.log(
+				"[" + dayjs().format() + " " + a.symbol + " TPMAutomation]: No changes."
+			);
 		}
 	});
 }
