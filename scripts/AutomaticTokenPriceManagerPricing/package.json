@@ -1,0 +1,28 @@
+{
+  "name": "AutomaticTokenPriceManagerPricing",
+  "version": "1.0.0",
+  "description": "Automatic calls to TokenPriceManager setPrice() when the fair price changes",
+  "main": "build/index.js",
+  "author": "Peter T. Flynn",
+  "license": "Apache 2.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf build",
+    "start": "node ./build/index.js",
+    "start:dev": "env-cmd -f .env node --trace-warnings ./build/index.js"
+  },
+  "dependencies": {
+    "@types/node": "^18.0.0",
+    "axios": "^0.27.2",
+    "dayjs": "^1.11.3",
+    "env-cmd": "^10.1.0",
+    "ethers": "^5.6.9",
+    "node": "^18.4.0",
+    "peirce-criterion": "^1.1.0",
+    "rimraf": "^3.0.2",
+    "toad-scheduler": "^1.6.1",
+    "tsc": "^2.0.4",
+    "typescript": "^4.7.4"
+  }
+}

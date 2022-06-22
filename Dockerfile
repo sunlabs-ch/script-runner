@@ -11,6 +11,11 @@ RUN pacman -S --needed --noconfirm --noprogressbar python3 python-pip
 WORKDIR scripts/SWDTokenSetNotifications
 RUN pip install -r requirements.txt
 
+# AutomaticTokenPriceManagerPricing
+RUN pacman -S --needed --noconfirm --noprogressbar npm
+WORKDIR ../AutomaticTokenPriceManagerPricing
+RUN yarn && yarn build
+
 # Process Manager
 WORKDIR /usr/src/app
 CMD ["pm2-runtime", "ecosystem.config.js"]
