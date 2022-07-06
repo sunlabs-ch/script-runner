@@ -80,17 +80,18 @@ def prepareMessage(w3, obj, address):
                     discord += f"{t}${symbol}{t2}"
                 except IndexError:
                     pass
+    symbol = getSymbol(w3, address)
     reply_markup = InlineKeyboardMarkup(
         [
             [
                 InlineKeyboardButton(
-                    f"👉 Buy ${getSymbol(w3, address)} on Polygon 👈",
-                    url=f"https://tokensets.com/v2/set/polygon/{address.lower()}",
+                    f"👉 Buy ${symbol} on Polygon 👈",
+                    url=f"https://app.swdao.org/product/{symbol}",
                 )
             ]
         ]
     )
-    discord += f"👇Buy ${getSymbol(w3, address)} on Polygon👇\n\nhttps://tokensets.com/v2/set/polygon/{address.lower()}"
+    discord += f"👇Buy ${symbol} on Polygon👇\n\nhttps://app.swdao.org/product/{symbol}"
 
     return telegram, discord, reply_markup
 
