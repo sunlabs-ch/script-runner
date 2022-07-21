@@ -1,6 +1,6 @@
-discord.py==1.7.3
-pexpect==4.8.0
-python-dotenv==0.20.0
-requests==2.25.1
-web3==5.24.0
+discord.py
+pexpect
+python-dotenv
+requests
+web3
 python-telegram-bot

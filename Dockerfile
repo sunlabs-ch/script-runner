@@ -7,7 +7,7 @@ COPY ecosystem.config.js ./ecosystem.config.js
 RUN ls -lah
 
 # SWDTokenSetNotifications
-RUN pacman -S --needed --noconfirm --noprogressbar python3 python-pip
+RUN pacman -S --needed --noconfirm --noprogressbar python3 python-pip python-yarl python-aiohttp
 WORKDIR scripts/SWDTokenSetNotifications
 RUN pip install -r requirements.txt
 
