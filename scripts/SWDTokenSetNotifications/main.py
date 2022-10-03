@@ -2,7 +2,8 @@ from datetime import datetime
 import os
 import sys
 import time
-from discord import Webhook, RequestsWebhookAdapter
+import requests
+from discord import SyncWebhook
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
 import urllib
 from pexpect import TIMEOUT
@@ -23,7 +24,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 ADDRESSES = [
-    "0x25ad32265c9354c29e145c902ae876f6b69806f2",  # Alpha Portfolio
+    # "0x25ad32265c9354c29e145c902ae876f6b69806f2",  # Alpha Portfolio
     "0x71b41b3b19aac53ca4063aec2d17fc3caeb38026",  # Macro Trend BTC
     "0x72Ca52512b93E8D67309aF0C14C1A225bcbd3548",  # Macro Trend ETH
     "0xabcc2102065ba01c6df1a5a5a57158f452403b70",  # Quantum Momentum BTC
@@ -113,8 +114,8 @@ def telegramNotification(message, reply_markup):
 
 
 def discordNotification(message):
-    dc = Webhook.from_url(DISCORD_WEBHOOK_URL, adapter=RequestsWebhookAdapter())
-    dc.send(message)
+    dc = SyncWebhook.from_url(DISCORD_WEBHOOK_URL)
+    dc.send(content=message)
     now = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
     print(f"{now} - Message send to Dicord")
 
