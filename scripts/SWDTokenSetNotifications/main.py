@@ -86,12 +86,12 @@ def prepareMessage(w3, obj, address):
             [
                 InlineKeyboardButton(
                     f"👉 Buy ${symbol} on Polygon 👈",
-                    url=f"https://app.swdao.org/product/{symbol}",
+                    url=f"https://app.suninvest.com/product/{symbol}",
                 )
             ]
         ]
     )
-    discord += f"👇Buy ${symbol} on Polygon👇\n\nhttps://app.swdao.org/product/{symbol}"
+    discord += f"👇Buy ${symbol} on Polygon👇\n\nhttps://app.suninvest.com/product/{symbol}"
 
     return telegram, discord, reply_markup
 

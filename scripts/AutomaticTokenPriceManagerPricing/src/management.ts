@@ -29,11 +29,11 @@ export const priceSet = async (manager: Contract, price: BigNumber) => {
 	const overrides = {
 		gasLimit: 100000,
 		maxFeePerGas: ethers.utils.parseUnits(
-			Math.ceil(fees.fast.maxFee) + '',
+			Math.ceil(fees.fast.maxFee).toString(),
 			'gwei'
 		),
 		maxPriorityFeePerGas: ethers.utils.parseUnits(
-			Math.ceil(fees.fast.maxPriorityFee) + '',
+			Math.ceil(fees.fast.maxPriorityFee).toString(),
 			'gwei'
 		)
 	};

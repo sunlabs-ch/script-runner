@@ -14,11 +14,13 @@ module.exports = {
       cwd: "scripts/SWDTokenSetNotifications",
       script: "main.py",
     },
+    /*
     {
       ...defaultConfig,
       name: "TokenPriceManager Automated Pricing",
       cwd: "scripts/AutomaticTokenPriceManagerPricing",
       script: "yarn start",
     },
+    */
   ],
 };
